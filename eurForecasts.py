@@ -130,7 +130,7 @@ import matplotlib.patches as mpatches
 
 plt.ioff()
 
-
+auto_run_log={}
 
 curtisForecasts["API"]=["0"+str(api)+"0000" for api in curtisForecasts.API10]
 curtisForecasts["di_oil"]=[secantToNominal(di/100,b) for di,b in zip(curtisForecasts["Di"],curtisForecasts["B"])]
@@ -158,6 +158,7 @@ plottingData["monthShift"]=np.round((plottingData["Start"]-plottingData["peakDat
 
 
 
+
 mlEurs=[]
 curtisEurs=[]
 for _,row in plottingData.iterrows():
@@ -180,7 +181,9 @@ plottingData["curtisEur"]*=30/1000
 
 
 
-
+auto_run_log["curtisTotal"]=plottingData["curtisEur"].sum()
+auto_run_log["modelTotal"]=plottingData["mlEur"].sum()
+auto_run_log["totalRelError"]=(plottingData["mlEur"].sum()-plottingData["curtisEur"].sum())/plottingData["curtisEur"].sum()
 
 
 
